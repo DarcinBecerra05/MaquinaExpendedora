@@ -3,32 +3,36 @@ package org.example;
 import java.util.*;
 
 public class MaquinaExpendedora {
-    Scanner ingresarDatos = new Scanner(System.in);
-    Cambio cambio = new Cambio();
-    Validaciones validaciones = new Validaciones();
-    CrearProducto crear = new CrearProducto();
-    ArrayList<Productos> listaProductos;
+    private Scanner ingresarDatos = new Scanner(System.in);
+    private Cambio cambio = new Cambio();
+    private Validaciones validaciones = new Validaciones();
+    private static CrearProducto crear = new CrearProducto();
+    private static ArrayList<Productos> listaProductos;
     int codigo, pago;
 
     public void ingresarDatos() {
-
+        listarProductos();
         try {
             int seguir = 0;
             while (seguir == 0) {
                 System.out.println(" ");
                 System.out.println("Ingrese el código del producto que desea comprar: ");
-                validaciones.validarNumero(ingresarDatos);
+                validaciones.validarDenominacionMoneda(ingresarDatos);
                 codigo = ingresarDatos.nextInt();
 
-                listaProductos = crear.crearProducto();
-                if (validaciones.ValidarproductoPresenteEnLista(codigo, listaProductos)) {
+
+                if (validaciones.ValidarProductoPresenteEnLista(codigo, listaProductos)) {
                     System.out.println("Ingrese el dinero para comprar el producto: ");
-                    validaciones.validarNumero(ingresarDatos);
+                    validaciones.validarDenominacionMoneda(ingresarDatos);
                     pago = ingresarDatos.nextInt();
-                    if (!validaciones.validarCentimo(pago)) {
+                    if (!validaciones.ValidarDenominacionLimiteMoneda(pago)) {
                         System.out.println("No puedo aceptar esta cantidad. Te la devuelvo para que lo intentes de nuevo " + pago);
+                        ingresarDatos();
                     } else {
-                        cambio.calcularCambio(codigo, pago, listaProductos);
+                        if(!cambio.calcularCambio(codigo, pago, listaProductos)){
+                            ingresarDatos();
+                        }
+
                     }
 
                 } else {
@@ -36,9 +40,14 @@ public class MaquinaExpendedora {
                     Thread.sleep(2000);
                     ingresarDatos();
                 }
+
+                Thread.sleep(2000);
                 System.out.println("0 te abre las puertas a más productos. Elige otro número para finalizar");
-                validaciones.validarNumero(ingresarDatos);
                 seguir = ingresarDatos.nextInt();
+                if (seguir == 0){
+                    Thread.sleep(2000);
+                    ingresarDatos();
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -47,13 +56,13 @@ public class MaquinaExpendedora {
     }
 
 
-    public void listarProductos() {
+    public static void listarProductos() {
         System.out.println("                                        ¡BIENVENIDOS!                                           ");
         System.out.println(" ");
         System.out.println("\"Encuentra todo lo que necesitas. Ofrecemos una gran variedad de productos frescos y de calidad.\"");
         System.out.println(" ");
         System.out.println(" Cod " + " Nombre " + "     Cant  " + "   Precio \n");
-        listaProductos = crear.crearProducto();
+        MaquinaExpendedora.listaProductos = crear.crearProducto();
         for (Productos productos : listaProductos) {
             System.out.println(productos.toString());
         }

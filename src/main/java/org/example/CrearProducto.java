@@ -4,9 +4,9 @@ import org.example.Productos;
 
 public class CrearProducto {
 
-    ArrayList<Productos> listaProductos = new ArrayList<>();
-    public ArrayList<Productos> crearProducto() {
 
+    public ArrayList<Productos> crearProducto() {
+        ArrayList<Productos> listaProductos = new ArrayList<>();
         Productos p1 = new Productos(1, "  Chocorramo    ", 8, 50);
         Productos p2 = new Productos(2, "  Coca-cola     ", 5, 10);
         Productos p3 = new Productos(3, "  Chocolatina   ", 3, 50);

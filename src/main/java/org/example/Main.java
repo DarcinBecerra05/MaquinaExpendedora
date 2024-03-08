@@ -5,7 +5,6 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
      MaquinaExpendedora maquinaExpendedora = new MaquinaExpendedora();
-     maquinaExpendedora.listarProductos();
      maquinaExpendedora.ingresarDatos();
     }
 }
