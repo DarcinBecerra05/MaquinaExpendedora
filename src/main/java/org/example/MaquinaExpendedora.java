@@ -26,7 +26,8 @@ public class MaquinaExpendedora {
                     validaciones.validarDenominacionMoneda(ingresarDatos);
                     pago = ingresarDatos.nextInt();
                     if (!validaciones.ValidarDenominacionLimiteMoneda(pago)) {
-                        System.out.println("No puedo aceptar esta cantidad. Te la devuelvo para que lo intentes de nuevo " + pago);
+                        System.err.println("No puedo aceptar esta cantidad. Dinero devuelto: " + pago + " \nIntentalo nuevamente ");
+                        Thread.sleep(4000);
                         ingresarDatos();
                     } else {
                         if(!cambio.calcularCambio(codigo, pago, listaProductos)){
@@ -42,9 +43,9 @@ public class MaquinaExpendedora {
                 }
 
                 Thread.sleep(2000);
-                System.out.println("0 te abre las puertas a más productos. Elige otro número para finalizar");
+                System.out.println("Presiaona 1 para comprar más productos. Elige otro número para Apagar la Máquina");
                 seguir = ingresarDatos.nextInt();
-                if (seguir == 0){
+                if (seguir == 1){
                     Thread.sleep(2000);
                     ingresarDatos();
                 }

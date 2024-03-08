@@ -7,7 +7,7 @@ public class Validaciones {
     public boolean validarDenominacionMoneda(Scanner scanner){
         try {
             if (!scanner.hasNextInt()) {
-                System.out.println("No ha ingresado un número entero. Por favor, inténtelo de nuevo:");
+                System.err.println("No ha ingresado un número entero. Por favor, inténtelo de nuevo:");
                 scanner.next();
                 return validarDenominacionMoneda(scanner);
             }
